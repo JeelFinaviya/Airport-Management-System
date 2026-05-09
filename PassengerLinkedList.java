@@ -32,7 +32,7 @@ public class PassengerLinkedList {
             }
             temp = temp.next;
         }
-        return null; // not found
+        return null;
     }
     public void displayAll() {
         Node temp = head;

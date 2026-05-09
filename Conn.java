@@ -9,7 +9,7 @@ class Conn{
     Statement st;
 
   public Conn()throws  Exception{
-        String dburl = "jdbc:mysql://localhost:3306/airlinemanagmentsystem";
+        String dburl = "jdbc:mysql://localhost:3306/airlinemanagement";
         String dbuser = "root";
         String dbpass = "";
         String driverName = "com.mysql.cj.jdbc.Driver";

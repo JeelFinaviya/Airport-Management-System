@@ -7,6 +7,7 @@ import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 
 class Login extends JFrame implements ActionListener {
+
     JLabel userName,passWord,welcome,admin;
     JTextField forUserName;
     JPasswordField forPassWord;
@@ -30,7 +31,7 @@ class Login extends JFrame implements ActionListener {
 
 
         lightGray = new JPanel();
-        lightGray.setBackground(new Color(0,0,0));
+        lightGray.setBackground(new Color(30,30,30));
         lightGray.setLayout(null);
         lightGray.setBounds(0,0,150,30);
         lightGray.add(welcome);
@@ -78,7 +79,7 @@ class Login extends JFrame implements ActionListener {
 
         login.add(forPassWord);
 
-        reset = new JButton("Reset");
+        reset = new JButton("Back");
         reset.setVisible(true);
         reset.setLayout(null);
         reset.setFocusable(false);
@@ -139,7 +140,7 @@ class Login extends JFrame implements ActionListener {
                         if (rs.next()) {
                             JOptionPane.showMessageDialog(null, "Valid", "Success", JOptionPane.PLAIN_MESSAGE);
                             this.dispose();
-                            new House();
+                            new HouseForAdmin();
                         } else {
                             JOptionPane.showMessageDialog(null, "Invalid Username or Password");
                             forUserName.setText("");
@@ -157,8 +158,8 @@ class Login extends JFrame implements ActionListener {
                 JOptionPane.showMessageDialog(null, "Enter All Fields.");
             }
         } else if (e.getSource()==reset) {
-            forPassWord.setText("");
-            forUserName.setText("");
+            this.dispose();
+            new RoleChooser();
         } else if (e.getSource()==Exit) {
             this.dispose();
         }

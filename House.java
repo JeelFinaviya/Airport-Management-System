@@ -10,7 +10,7 @@ import java.awt.event.KeyEvent;
 
 class House extends JFrame implements ActionListener {
 
-    JLabel heading;
+    JLabel heading,image;
     JMenuBar menuBar;
     JPanel header, main;
 
@@ -24,6 +24,18 @@ class House extends JFrame implements ActionListener {
 
     public House() {
 
+        ImageIcon icon = new ImageIcon("C:\\Users\\JEEL\\IdeaProjects\\Group_project\\src\\Project\\Icons\\img.png");
+
+        image = new JLabel();
+        image.setBounds(330,50,1210,770);
+
+
+
+        Image img = icon.getImage();
+        Image scaledImg = img.getScaledInstance(image.getWidth(), image.getHeight(), Image.SCALE_SMOOTH);
+        image.setIcon(new ImageIcon(scaledImg));
+
+
         header = new JPanel(new BorderLayout());
         header.setBackground(new Color(25, 118, 210));
         header.setLayout(null);
@@ -31,7 +43,7 @@ class House extends JFrame implements ActionListener {
 
         main = new JPanel();
         main.setLayout(null);
-        main.setBackground(new Color(255, 255, 255));
+        main.setBackground(new Color(30, 30, 30));
         main.setBounds(0, 50, 330, 2000);
 
 
@@ -114,15 +126,6 @@ class House extends JFrame implements ActionListener {
         details.add(ticketCancelDetails);
 
 
-
-
-        //imageIcon = new ImageIcon("C:\\Users\\JEEL\\IdeaProjects\\Group_project\\src\\Project\\Icons\\953200-plane-desktop-wallpaper.jpg");
-       // label = new JLabel(imageIcon);
-        //label.setBounds(0, 0, 1600, 841);
-        //main.add(label);
-
-
-
         main.add(fd);
         main.add(cd);
         main.add(jd);
@@ -141,8 +144,6 @@ class House extends JFrame implements ActionListener {
 
 
 
-
-
         setVisible(true);
         setTitle("Airline Reservation System");
         setExtendedState(JFrame.MAXIMIZED_BOTH);
@@ -152,6 +153,7 @@ class House extends JFrame implements ActionListener {
         setJMenuBar(menuBar);
         this.add(header);
         this.add(main);
+        this.add(image);
 
     }
 

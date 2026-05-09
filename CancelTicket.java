@@ -12,14 +12,16 @@ import java.util.Random;
 
 
 public class CancelTicket extends JFrame implements ActionListener {
-    JLabel heading, name, cancellation, fcode, PNR, cName, cancel,flightCode, date, datechooser;
+    JLabel ticketCountLabel,heading, name, cancellation, fcode, PNR, cName, cancel,flightCode, date, datechooser;
     JTextField PNRTEXT;
     JButton cancelTicket, Exit3, fetch;
     Random random;
     JPanel back;
+    int bookedTickets = 0;
 
     public static void main(String[] args) throws Exception {
         new CancelTicket();
+
     }
 
     public CancelTicket() throws Exception {
@@ -45,9 +47,9 @@ public class CancelTicket extends JFrame implements ActionListener {
         PNR.setForeground(new Color(255,255,255));
 
         PNRTEXT = new JTextField();
-        PNRTEXT.setForeground(new Color(255,255,255));
+        PNRTEXT.setForeground(new Color(30,30,30));
         PNRTEXT.setBounds(215, 70, 120, 25);
-        PNRTEXT.setBackground(new Color(26,26,26));
+        PNRTEXT.setBackground(new Color(255,255,255));
 
         fetch = new JButton("Show Details");
         fetch.setVisible(true);
@@ -98,22 +100,29 @@ public class CancelTicket extends JFrame implements ActionListener {
         cancelTicket.setFocusable(false);
         cancelTicket.setBackground(new Color(25,118,210));
         cancelTicket.setForeground(new Color(255,255,255));
-        cancelTicket.setBounds(220, 330, 140, 25);
+        cancelTicket.setBounds(220, 350, 140, 25);
         cancelTicket.addActionListener(this);
         back.add(cancelTicket);
+
+        ticketCountLabel = new JLabel("Tickets Booked   :");
+        ticketCountLabel.setBounds(60, 300, 300, 22);
+        ticketCountLabel.setFont(new Font("Tahoma", Font.PLAIN, 16));
+        ticketCountLabel.setForeground(new Color(255, 255, 255));
+        back.add(ticketCountLabel);
+
 
 
         Exit3 = new JButton("Exit");
         Exit3.setFocusable(false);
         Exit3.setForeground(new Color(255,255,255));
         Exit3.setBackground(new Color(211,47,47));
-        Exit3.setBounds(75, 330, 140, 25);
+        Exit3.setBounds(75, 350, 140, 25);
         Exit3.addActionListener(this);
 
 
         this.setVisible(true);
         this.setLayout(null);
-        this.setBounds(350, 150, 800, 450);
+        this.setBounds(400, 200, 800, 450);
         this.setResizable(false);
         this.add(back);
 
@@ -144,13 +153,20 @@ public class CancelTicket extends JFrame implements ActionListener {
                     ResultSet rs = con.st.executeQuery(query);
                     if (rs.next()) {
                         cName.setText(rs.getString("name"));
+                        cName.setForeground(Color.white);
                         cName.setFont(new Font("Tahoma", Font.PLAIN, 14));
                         cancel.setText(rs.getString("cancelno"));
+                        cancel.setForeground(Color.white);
                         cancel.setFont(new Font("Tahoma",Font.PLAIN,14));
                         fcode.setText(rs.getString("flightcode"));
+                        fcode.setForeground(Color.white);
                         fcode.setFont(new Font("Tahoma", Font.PLAIN, 14));
                         datechooser.setText(rs.getString("ddate"));
+                        datechooser.setForeground(Color.white);
                         datechooser.setFont(new Font("Tahoma", Font.PLAIN, 14));
+                        bookedTickets=rs.getInt("total_ticket");
+                        ticketCountLabel.setText("Tickets Booked    : " + bookedTickets);
+
 
                     } else {
                         JOptionPane.showMessageDialog(null, "Please enter correct PNR Number.", "Error", JOptionPane.ERROR_MESSAGE);
@@ -168,15 +184,21 @@ public class CancelTicket extends JFrame implements ActionListener {
 
             try {
                 Conn con = new Conn();
-                String query2 = "delete from reservation where pnr='"+PNR+"'";
+                String query3 = "update flight_schedule set available_seat = available_seat + " + bookedTickets + " where f_code='" + fcode.getText() + "' and flight_date='" + datechooser.getText() + "'";
+
+                String query2 = "delete from reservation where pnr='" + PNR + "'";
+
                 int r1 = con.st.executeUpdate(query2);
+                int r3 = con.st.executeUpdate(query3);
+                
                 if(r1>0){
                     PNRTEXT.setText("");
                     cName.setText("");
                     cancel.setText("");
                     fcode.setText("");
                     datechooser.setText("");
-                    JOptionPane.showMessageDialog(null, "Ticket Cancel Successfully.", "Success", JOptionPane.PLAIN_MESSAGE);
+                    ticketCountLabel.setText("Tickets Booked : 0");
+                    JOptionPane.showMessageDialog(null, "Ticket(s) Cancel Successfully.", "Success", JOptionPane.PLAIN_MESSAGE);
                 }else {
                     JOptionPane.showMessageDialog(null, "Something Wrong!!.", "Error", JOptionPane.ERROR_MESSAGE);
                 }

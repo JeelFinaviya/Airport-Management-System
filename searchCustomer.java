@@ -82,7 +82,7 @@ public class searchCustomer extends JFrame implements ActionListener {
 
 
         this.setLayout(null);
-        this.setBounds(400, 250, 800, 400);
+        this.setBounds(400, 200, 800, 400);
         this.setVisible(true);
         this.add(main);
         main.add(a);
@@ -116,31 +116,44 @@ public class searchCustomer extends JFrame implements ActionListener {
                 e1.printStackTrace();
             }
             String aadhar1 = aadhar.getText();
-            if (!aadhar1.isEmpty()) {
-                Passenger found = list.searchByAadhar(aadhar1);
-                if (found != null) {
-                    cName.setText(found.name);
-                    cName.setFont(new Font("Tahoma", Font.PLAIN, 14));
-                    cName.setForeground(Color.white);
+            if (!aadhar1.isEmpty() && aadhar1.length()==12) {
+                boolean b = true;
 
-                    nName.setText(found.nationality);
-                    nName.setFont(new Font("Tahoma", Font.PLAIN, 14));
-                    nName.setForeground(Color.white);
+                for(int i =0;i<aadhar1.length();i++){
+                   if(aadhar1.charAt(i)<'0'||aadhar1.charAt(i)>'9'){
+                       b=false;
+                   }
+                }
 
-                    Add.setText(found.address);
-                    Add.setFont(new Font("Tahoma", Font.PLAIN, 14));
-                    Add.setForeground(Color.white);
+                if(b) {
+                    Passenger found = list.searchByAadhar(aadhar1);
+                    if (found != null) {
+                        cName.setText(found.name);
+                        cName.setFont(new Font("Tahoma", Font.PLAIN, 14));
+                        cName.setForeground(Color.white);
 
-                    labelGender.setText(found.gender);
-                    labelGender.setFont(new Font("Tahoma", Font.PLAIN, 14));
-                    labelGender.setForeground(Color.white);
+                        nName.setText(found.nationality);
+                        nName.setFont(new Font("Tahoma", Font.PLAIN, 14));
+                        nName.setForeground(Color.white);
+
+                        Add.setText(found.address);
+                        Add.setFont(new Font("Tahoma", Font.PLAIN, 14));
+                        Add.setForeground(Color.white);
+
+                        labelGender.setText(found.gender);
+                        labelGender.setFont(new Font("Tahoma", Font.PLAIN, 14));
+                        labelGender.setForeground(Color.white);
 
 
-                }else {
-                    JOptionPane.showMessageDialog(null, "No Customer Found.", "Error", JOptionPane.ERROR_MESSAGE);
+                    }else {
+                        JOptionPane.showMessageDialog(null, "No Customer Found.", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+                }else{
+                    JOptionPane.showMessageDialog(null, "Aadhar Contains(0-9).", "Error", JOptionPane.ERROR_MESSAGE);
+
                 }
             }else {
-                JOptionPane.showMessageDialog(null, "Enter All Field.", "Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Enter All Field OR Valid Field.", "Error", JOptionPane.ERROR_MESSAGE);
             }
         } else if (e.getSource()==exit){
             this.dispose();

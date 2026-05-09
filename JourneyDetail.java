@@ -41,8 +41,8 @@ public class JourneyDetail extends JFrame implements ActionListener {
         jsp.setBackground(Color.white);
 
 
-        Exit4 = new JButton("Log Out");
-        Exit4.setBounds(696,0,100,25);
+        Exit4 = new JButton("Exit");
+        Exit4.setBounds(160,90,120,25);
         Exit4.setBackground(Color.red);
         Exit4.setForeground(Color.white);
         Exit4.setFocusable(false);
@@ -71,12 +71,12 @@ public class JourneyDetail extends JFrame implements ActionListener {
 
         getContentPane().setBackground(Color.WHITE);
         this.setLayout(null);
-        this.setBounds(400, 250, 800, 400);
+        this.setBounds(400, 200, 800, 400);
         this.setVisible(true);
         real1.add(pnr);
         real1.add(pnrText);
         real1.add(show);
-        this.add(Exit4);
+        real1.add(Exit4);
         this.add(jsp);
         this.add(real);
         this.add(real1);

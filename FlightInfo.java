@@ -50,8 +50,13 @@ public class FlightInfo extends JFrame implements ActionListener {
             Conn con = new Conn();
             ResultSet rs = con.st.executeQuery("select * from flight");
             table.setModel( DbUtils.resultSetToTableModel(rs));
-            table.setBackground(new Color(30,30,30));
+            table.setBackground(new Color(50,50,50));
             table.setForeground(Color.white);
+            table.getTableHeader().setBackground(new Color(50,50,50));
+            table.getTableHeader().setForeground(Color.white);
+            table.getTableHeader().setFont(new Font("Segoe UI", Font.BOLD, 12));
+
+
 
         } catch (Exception e) {
             e.printStackTrace();
